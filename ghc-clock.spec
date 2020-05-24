@@ -5,13 +5,13 @@
 %define		pkgname	clock
 Summary:	High-resolution clock functions: monotonic, realtime, cputime
 Name:		ghc-%{pkgname}
-Version:	0.7.2
+Version:	0.8
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/clock
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	3bb91ede556cde92a64c635da68699cd
+# Source0-md5:	a2fcee09fe0da5f60e1c4356d39ed1bd
 URL:		http://hackage.haskell.org/package/clock
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 2
@@ -97,14 +97,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{name}-%{version}-doc/*
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSclock-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/System
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/System/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/System/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSclock-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/System/*.p_hi
 %endif
